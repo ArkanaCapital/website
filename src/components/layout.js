@@ -1,55 +1,60 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
+import React, { Fragment, useContext, useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
+import { MenuContext } from "@/context/menu-context";
+import PopupMenu from "@/components/popup-menu";
+import { Link as ScrollLink } from "react-scroll";
 
-import * as React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import "typeface-oswald";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@/css/animate.css";
+import "@/css/font-awesome.min.css";
+import "@/css/icons.css";
+import "@/css/preset.css";
+import "@/css/theme.css";
+import "@/css/responsive.css";
 
-import Header from "./header"
-import "./layout.css"
+const Layout = ({ PageTitle, children }) => {
+  const { menuStatus } = useContext(MenuContext);
+  const [scrollTop, setScrollTop] = useState(false);
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
+  const handleScrollTop = () => {
+    if (window.scrollY > 70) {
+      setScrollTop(true);
+    } else if (window.scrollY < 70) {
+      setScrollTop(false);
     }
-  `)
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollTop);
+    return () => {
+      window.removeEventListener("scroll", handleScrollTop);
+    };
+  }, [scrollTop]);
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `2rem`,
-          }}
+    <Fragment>
+      <Helmet>
+        <title>
+          {PageTitle} - DeFi Asset Management Fund
+        </title>
+      </Helmet>
+      <div id="wrapper">{children}</div>
+      {true === menuStatus ? <PopupMenu /> : null}
+
+      {scrollTop === true ? (
+        <ScrollLink
+          to="wrapper"
+          smooth={true}
+          duration={500}
+          id="backToTop"
+          className="scroll-to-top showit"
         >
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
-}
+          <i className="fa fa-angle-double-up"></i>
+        </ScrollLink>
+      ) : null}
+    </Fragment>
+  );
+};
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export default Layout
+export default Layout;
