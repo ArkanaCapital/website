@@ -112,9 +112,15 @@ License URI:
   .black_color .mainmenu ul li a:after {
     background: #fff;
   }
+  .common_btn {
+    font-size: 11px !important;
+    padding: 5px 40px !important;
+    height: 55px !important;
+    margin-left: 5px;
+  }
 
   .header_01 {
-    padding: 39px 0 0;
+    padding: 20px 0 0 20px;
   }
   .navigator {
     padding-top: 0;
@@ -139,6 +145,12 @@ License URI:
   .logo2 {
     left: 15px;
     top: 20px;
+  }
+  .sec_desc {
+    margin-bottom: 24px !important;
+  }
+  .footer_02 {
+    font-size: 11px !important;
   }
   .dl-menu__wrap ul li {
     margin: 5px 0;

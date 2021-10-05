@@ -32,8 +32,11 @@ const SliderOne = () => {
                 <Col lg={10}>
                   <p className="main-slider__subtext">{subTitle}</p>
                   <h3 className="main-slider__title">{title}</h3>
-                  <button className="common_btn red_bg" onClick={handleContactClick}
-                  href="#">
+                  <button
+                    className="common_btn red_bg"
+                    onClick={handleContactClick}
+                    href="#"
+                  >
                     <span>Contact Us</span>
                   </button>
                 </Col>
